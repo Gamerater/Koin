@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+}
+
+.navbar {
+    background-color: #1A3C5E;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tagline {
+    color: #a0bcd8;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.container {
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #1A3C5E;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #1A3C5E;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #1A3C5E;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #15304d;
+}
+
+#message {
+    margin-top: 12px;
+    font-size: 13px;
+    text-align: center;
+    color: green;
+}
+
+.expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.expense-item:last-child {
+    border-bottom: none;
+}
+
+.expense-title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.expense-category {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
+
+.expense-amount {
+    font-weight: 700;
+    color: #1A3C5E;
+    font-size: 15px;
+}

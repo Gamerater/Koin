@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import sqlite3
 from datetime import date
 
@@ -12,7 +12,7 @@ def get_db():
 # TEST ROUTE
 @app.route("/")
 def home():
-    return "Koin API is running"
+    return render_template("index.html")
 
 # ADD EXPENSE
 @app.route("/add-expense", methods = ["POST"])
