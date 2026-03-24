@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 import sqlite3
 from datetime import date
 
 app = Flask(__name__)
 
+CORS(app)
 def get_db():
     conn = sqlite3.connect("database/koin.db")
     conn.row_factory = sqlite3.Row #lets you access columns by names
