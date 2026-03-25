@@ -11,8 +11,27 @@ const USER_ID = 1; // Hardcoded for now, will be dynamic after login implementat
 const getThemeColor = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Things that should run on EVERY page (like the theme toggle)
     initThemeToggle();
-    fetchDashboardData();
+    
+    // 2. The Router: Figure out what page we are on
+    const currentPage = document.body.getAttribute('data-page');
+
+    // 3. Only run the code meant for that specific page
+    switch (currentPage) {
+        case 'dashboard':
+            fetchDashboardData();
+            break;
+            
+        case 'add-transaction':
+            initAddTransactionPage();
+            break;
+            
+        // You can easily add future pages here!
+        // case 'analytics':
+        //     initAnalyticsPage();
+        //     break;
+    }
 });
 
 /* =========================================
@@ -249,4 +268,109 @@ function getDummyCategories() {
         { id: 3, name: 'Leisure', color: '#F5A623' },         // Gold
         { id: 4, name: 'Other', color: '#6B7280' }            // Gray
     ];
+}
+
+/* =========================================
+   ADD TRANSACTION PAGE LOGIC
+   ========================================= */
+
+// Check if we are on the Add Transaction page before running this code
+document.addEventListener('DOMContentLoaded', () => {
+    const transactionForm = document.getElementById('transaction-form');
+    
+    if (transactionForm) {
+        initAddTransactionPage();
+    }
+});
+
+async function initAddTransactionPage() {
+    // 1. Set today's date as default
+    document.getElementById('date').valueAsDate = new Date();
+
+    // 2. Fetch categories for the dropdown
+    populateCategoryDropdown();
+
+    // 3. Handle Form Submission
+    const form = document.getElementById('transaction-form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent page reload
+        
+        const submitBtn = document.getElementById('submit-btn');
+        const messageEl = document.getElementById('form-message');
+        
+        // UI Loading State
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+        messageEl.innerText = '';
+
+        // Gather Data matching your backend SQLite schema
+        const expenseData = {
+            user_id: USER_ID,
+            title: document.getElementById('title').value,
+            amount: parseFloat(document.getElementById('amount').value),
+            category: document.getElementById('category').value,
+            date: document.getElementById('date').value,
+            note: document.getElementById('note').value,
+            is_recurring: document.getElementById('is_recurring').Checked
+        };
+
+        try {
+            // POST to your Flask backend
+            const response = await fetch(`${API_BASE_URL}/add-expense`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(expenseData)
+            });
+
+            if (response.ok) {
+                // Success!
+                messageEl.style.color = 'var(--success-color)';
+                messageEl.innerText = 'Transaction added successfully!';
+                form.reset();
+                document.getElementById('date').valueAsDate = new Date(); // Reset date to today
+                
+                // Optional: redirect back to dashboard after 1.5s
+                setTimeout(() => window.location.href = '/', 1500);
+            } else {
+                throw new Error("Server returned an error.");
+            }
+        } catch (error) {
+            console.error('Error saving transaction:', error);
+            messageEl.style.color = 'var(--danger-color)';
+            messageEl.innerText = 'Failed to add transaction. Please try again.';
+        } finally {
+            // Reset Button State
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Add Transaction';
+        }
+    });
+}
+
+async function populateCategoryDropdown() {
+    const categorySelect = document.getElementById('category');
+    
+    try {
+        let categories = [];
+        const res = await fetch(`${API_BASE_URL}/get-categories`).catch(() => null);
+        
+        if (res && res.ok) {
+            categories = await res.json();
+        } else {
+            // Fallback to dummy data if Flask isn't ready
+            categories = getDummyCategories();
+        }
+
+        // Add options to dropdown
+        categories.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.name;
+            option.textContent = cat.name;
+            categorySelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("Error loading categories:", error);
+    }
 }

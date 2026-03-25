@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Transaction | Koin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body data-page="add-transaction">
+  <div class="app-container">
+    
+    <aside class="sidebar">
+      <div class="brand">
+        <h1 class="logo">Koin</h1>
+        <p class="tagline">Premium Curator</p>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="/" class="nav-item"><i class="fa-solid fa-border-all"></i> Overview</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+        <a href="/add" class="nav-item active"><i class="fa-solid fa-receipt"></i> Transactions</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-wallet"></i> Budgeting</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-circle-question"></i> Support</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-actions">
+            <a href="#" class="action-link"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="#" class="action-link danger"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <nav class="top-nav">
+          <a href="/" class="logo-text-nav">Koin</a>
+          <a href="#">Portfolio</a>
+          <a href="#">Markets</a>
+          <a href="#">Wealth</a>
+        </nav>
+        <div class="header-actions">
+          <button id="theme-toggle" class="icon-btn"><i class="fa-solid fa-moon"></i></button>
+          <button class="icon-btn"><i class="fa-solid fa-bell"></i></button>
+          <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+          <div class="avatar"></div>
+        </div>
+      </header>
+
+      <div class="page-header">
+        <div>
+            <h2>Add Transaction</h2>
+            <p class="text-muted">Record your latest activity with precision.</p>
+        </div>
+        <a href="/" class="btn-secondary"><i class="fa-solid fa-xmark"></i> Cancel</a>
+      </div>
+
+      <div class="add-grid">
+        
+        <div class="card form-card">
+          <form id="transaction-form">
+            
+            <div class="amount-section">
+                <p class="section-label">TRANSACTION AMOUNT</p>
+                <div class="amount-input-wrapper">
+                    <span class="currency-symbol">₹</span>
+                    <input type="number" id="amount" name="amount" placeholder="0.00" step="0.01" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="title">Transaction Title</label>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="e.g. Monthly Rent" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" class="form-control" required>
+                        <option value="" disabled selected>Select a category</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="method">Payment Method</label>
+                    <select id="method" name="method" class="form-control">
+                        <option value="card">Koin Primary Card (..4291)</option>
+                        <option value="cash">Cash</option>
+                        <option value="upi">UPI</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="note">Notes (Optional)</label>
+                <textarea id="note" name="note" class="form-control" rows="3" placeholder="Add specific details about this transaction..."></textarea>
+            </div>
+
+            <div class="form-group toggle-group">
+                <div>
+                    <label for="is_recurring">Recurring Transaction</label>
+                    <p class="text-muted" style="font-size: 0.75rem; margin-top: 2px;">Mark if this repeats monthly</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="is_recurring" name="is_recurring">
+                  <span class="slider round"></span>
+                </label>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn-primary btn-large">
+                <i class="fa-solid fa-circle-check"></i> Add Transaction
+            </button>
+            <p id="form-message" class="form-message"></p>
+
+          </form>
+        </div>
+
+        <div class="right-widgets">
+          
+          <div class="card insight-card">
+            <h4 class="insight-title"><i class="fa-solid fa-sparkles gold-text"></i> KOIN INSIGHT</h4>
+            <h3>Smart Categorization</h3>
+            <p>Based on your history, this seems like a <span class="gold-text">Grocery</span> expense from your usual vendor. Would you like to apply the "Household" tag?</p>
+            <button class="btn-outline-light">Apply Suggestion</button>
+          </div>
+
+          <div class="card widget-card">
+            <div class="widget-header">
+                <h4>Recent History</h4>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div class="history-list">
+                <div class="history-item">
+                    <div class="hist-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                    <div class="hist-details">
+                        <p class="hist-title">Starbucks Coffee</p>
+                        <p class="hist-date">Yesterday</p>
+                    </div>
+                    <p class="hist-amount">₹450</p>
+                </div>
+                <div class="history-item">
+                    <div class="hist-icon"><i class="fa-solid fa-car"></i></div>
+                    <div class="hist-details">
+                        <p class="hist-title">Uber Ride</p>
+                        <p class="hist-date">Aug 22</p>
+                    </div>
+                    <p class="hist-amount">₹210</p>
+                </div>
+            </div>
+          </div>
+
+          <div class="card receipt-card">
+            <div class="upload-area">
+                <div class="upload-icon"><i class="fa-solid fa-file-arrow-up"></i></div>
+                <h4>Snap a Receipt</h4>
+                <p>AI will fill details for you</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <p class="footer-note">Your data is encrypted and synced across all your Koin devices.</p>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

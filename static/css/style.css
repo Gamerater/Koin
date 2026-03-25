@@ -219,3 +219,89 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .main-content { padding: 1rem; }
   .stats-row { grid-template-columns: 1fr; }
 }
+/* =========================================
+   ADD TRANSACTION SCREEN STYLES
+   ========================================= */
+
+/* Sidebar Updates */
+.upgrade-card { background-color: var(--koin-navy); padding: 1.2rem; border-radius: var(--radius-md); color: white; margin-bottom: 1.5rem; }
+.status-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.7); margin-bottom: 0.25rem; }
+.status-text { font-size: 0.85rem; margin-bottom: 1rem; }
+.btn-gold { background-color: var(--koin-gold); color: var(--koin-navy); border-radius: 6px; padding: 0.5rem 1rem; font-weight: 600; width: 100%; font-size: 0.85rem; }
+.sidebar-actions { display: flex; flex-direction: column; gap: 1rem; }
+.action-link { color: var(--text-main); font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 0.75rem; }
+.action-link.danger { color: var(--danger-color); }
+
+/* Header & Grid Layout */
+.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.page-header h2 { font-size: 1.8rem; color: var(--koin-navy); margin-bottom: 0.25rem; }
+[data-theme="dark"] .page-header h2 { color: var(--text-main); }
+.text-muted { color: var(--text-muted); font-size: 0.9rem; }
+.logo-text-nav { font-size: 1.4rem; font-weight: 700; color: var(--koin-navy); font-family: var(--font-heading); }
+[data-theme="dark"] .logo-text-nav { color: var(--koin-gold); }
+
+.btn-secondary { background-color: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; }
+.add-grid { display: grid; grid-template-columns: 1.8fr 1fr; gap: 2rem; }
+
+/* Form Elements */
+.form-card { padding: 2.5rem; }
+.amount-section { text-align: center; margin-bottom: 3rem; }
+.section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 1rem; }
+.amount-input-wrapper { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+.currency-symbol { font-size: 3.5rem; font-weight: 600; color: var(--koin-gold); }
+#amount { font-size: 5rem; font-weight: 700; border: none; background: transparent; color: var(--border-color); width: 100%; max-width: 300px; text-align: center; outline: none; transition: color 0.3s; font-family: var(--font-heading); }
+#amount:focus, #amount:not(:placeholder-shown) { color: var(--koin-navy); }
+[data-theme="dark"] #amount:focus, [data-theme="dark"] #amount:not(:placeholder-shown) { color: var(--text-main); }
+#amount::placeholder { color: var(--border-color); }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+.form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+.form-control { padding: 0.9rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-body); outline: none; transition: border-color 0.2s; }
+.form-control:focus { border-color: var(--koin-navy); }
+textarea.form-control { resize: vertical; }
+
+.btn-large { width: 100%; padding: 1rem; font-size: 1rem; border-radius: 8px; margin-top: 1rem; }
+.form-message { text-align: center; margin-top: 1rem; font-size: 0.9rem; font-weight: 500; }
+
+/* Right Widgets */
+.right-widgets { display: flex; flex-direction: column; gap: 1.5rem; }
+.insight-card { background-color: var(--koin-navy); color: white; }
+.insight-title { font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.gold-text { color: var(--koin-gold); }
+.insight-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+.insight-card p { font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin-bottom: 1.5rem; }
+.btn-outline-light { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.6rem 1rem; border-radius: 6px; width: 100%; font-weight: 500; }
+
+.widget-card { background-color: var(--sidebar-bg); border: none; }
+.widget-header { display: flex; justify-content: space-between; margin-bottom: 1.5rem; color: var(--text-main); font-weight: 600; font-size: 0.9rem; }
+.history-list { display: flex; flex-direction: column; gap: 1rem; }
+.history-item { display: flex; align-items: center; background: var(--surface-color); padding: 0.75rem; border-radius: var(--radius-md); }
+.hist-icon { width: 36px; height: 36px; background: rgba(245, 166, 35, 0.1); color: var(--koin-gold); display: flex; justify-content: center; align-items: center; border-radius: 50%; margin-right: 1rem; }
+.hist-details { flex-grow: 1; }
+.hist-title { font-size: 0.85rem; font-weight: 600; }
+.hist-date { font-size: 0.7rem; color: var(--text-muted); }
+.hist-amount { font-weight: 600; font-size: 0.9rem; }
+
+.receipt-card { border: 2px dashed var(--border-color); background: transparent; text-align: center; padding: 2rem; cursor: pointer; transition: background-color 0.2s; }
+.receipt-card:hover { background-color: var(--sidebar-bg); }
+.upload-icon { width: 40px; height: 40px; background-color: var(--surface-color); color: var(--koin-navy); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 1rem auto; box-shadow: var(--shadow-sm); }
+.receipt-card h4 { font-size: 0.9rem; margin-bottom: 0.25rem; }
+.receipt-card p { font-size: 0.75rem; color: var(--text-muted); }
+.footer-note { text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 2rem; }
+
+@media (max-width: 1024px) { .add-grid { grid-template-columns: 1fr; } }
+
+/* =========================================
+   TOGGLE SWITCH STYLES
+   ========================================= */
+.toggle-group { display: flex; flex-direction: row; justify-content: space-between; align-items: center; background-color: var(--bg-color); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.5rem; }
+.switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border-color); transition: .3s; border-radius: 24px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+
+/* Checked State */
+input:checked + .slider { background-color: var(--koin-navy); }
+input:checked + .slider:before { transform: translateX(20px); }
+[data-theme="dark"] input:checked + .slider { background-color: var(--koin-gold); }
