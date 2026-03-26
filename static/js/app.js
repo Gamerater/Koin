@@ -24,7 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
             
         case 'add-transaction':
-            initAddTransactionPage();
+            initAddTransactionPage(); {
+                document,getElementById('date').valueAsDate = new Date();
+                populateCategoryDropdown();
+                loadRecentHistory();
+            }
             break;
             
         // You can easily add future pages here!
@@ -329,6 +333,7 @@ async function initAddTransactionPage() {
                 messageEl.style.color = 'var(--success-color)';
                 messageEl.innerText = 'Transaction added successfully!';
                 form.reset();
+                loadRecentHistory();
                 document.getElementById('date').valueAsDate = new Date(); // Reset date to today
                 
                 // Optional: redirect back to dashboard after 1.5s
@@ -362,6 +367,10 @@ async function populateCategoryDropdown() {
             categories = getDummyCategories();
         }
 
+        // Clear the dropdown completely before adding items
+        categorySelect.innerHTML = '<option value="" disabled selected> Select a category </option>';
+    
+
         // Add options to dropdown
         categories.forEach(cat => {
             const option = document.createElement('option');
@@ -372,5 +381,61 @@ async function populateCategoryDropdown() {
 
     } catch (error) {
         console.error("Error loading categories:", error);
+    }
+}
+
+async function loadRecentHistory() {
+    const listContainer = document.getElementById('recent-history-list');
+    
+    try {
+        const res = await fetch(`${API_BASE_URL}/get-expenses?user_id=${USER_ID}`);
+        if (!res.ok) throw new Error("Failed to fetch");
+        
+        const expenses = await res.json();
+        listContainer.innerHTML = ''; // Clear loading text
+
+        if (expenses.length === 0) {
+            listContainer.innerHTML = '<p class="text-muted" style="font-size: 0.8rem; text-align: center;">No recent transactions.</p>';
+            return;
+        }
+
+        // Grab only the 3 most recent expenses
+        const recentExpenses = expenses.slice(0, 3);
+
+        recentExpenses.forEach(exp => {
+            // Map your database categories to FontAwesome icons
+            const iconMap = {
+                'Food & Dining': '<i class="fa-solid fa-burger"></i>',
+                'Transport': '<i class="fa-solid fa-car"></i>',
+                'Shopping': '<i class="fa-solid fa-bag-shopping"></i>',
+                'Entertainment': '<i class="fa-solid fa-film"></i>',
+                'Health': '<i class="fa-solid fa-notes-medical"></i>',
+                'Education': '<i class="fa-solid fa-book"></i>',
+                'Utilities': '<i class="fa-solid fa-bolt"></i>',
+                'Other': '<i class="fa-solid fa-box"></i>'
+            };
+            
+            const iconHtml = iconMap[exp.category] || '<i class="fa-solid fa-receipt"></i>';
+
+            // Format date nicely (e.g., "Mar 25")
+            const dateObj = new Date(exp.date);
+            const dateString = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+            const item = document.createElement('div');
+            item.className = 'history-item';
+            item.innerHTML = `
+                <div class="hist-icon">${iconHtml}</div>
+                <div class="hist-details">
+                    <p class="hist-title">${exp.title}</p>
+                    <p class="hist-date">${dateString} • ${exp.category}</p>
+                </div>
+                <p class="hist-amount">₹${parseFloat(exp.amount).toFixed(2)}</p>
+            `;
+            listContainer.appendChild(item);
+        });
+
+    } catch (error) {
+        console.error("Error loading history:", error);
+        listContainer.innerHTML = '<p class="text-muted" style="font-size: 0.8rem; text-align: center;">Failed to load history.</p>';
     }
 }
